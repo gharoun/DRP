@@ -26,7 +26,7 @@ import { Title, Sider, Layout, Header } from "components/layout";
 import { CredentialResponse } from "interfaces/google";
 import { parseJwt } from "utils/parse-jwt";
 import { AuthPage } from "@pankod/refine-mui";
-
+import { Register } from "pages/register";
 import {
   AgentProfile,
   Agents,
@@ -177,7 +177,7 @@ function App() {
               },
               {
                 path: "/register",
-                element: <AuthPage type="register" />,
+                element: <Register />,
               },
               {
                 path: "/update-password",
