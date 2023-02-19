@@ -9,8 +9,10 @@ import PropertyDetails from "./property-details";
 import EditProperty from "./edit-property";
 import { ForgotPassword } from "./forgotPassword";
 import { Register } from "./register";
+import { UpdatePassword } from "./updatePassword";
 
 export {
+  UpdatePassword,
   Register,
   ForgotPassword,
   AgentProfile,

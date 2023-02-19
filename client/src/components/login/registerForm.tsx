@@ -12,6 +12,7 @@ import { useForm } from "@pankod/refine-react-hook-form";
 const RegisterForm = () => {
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -106,12 +107,18 @@ const RegisterForm = () => {
       <TextField
         {...register("confirmPassword", {
           required: true,
+          validate: (value?: string) => {
+            if (watch("password") !== value) {
+              alert("Password do not match");
+            }
+            return true;
+          },
         })}
         id="confirmPassword"
         margin="normal"
         fullWidth
         color="info"
-        name="confirm"
+        name="confirmPassword"
         label={"Confirm Password"}
         error={!!errors.confirm}
         type="password"

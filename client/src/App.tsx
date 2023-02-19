@@ -27,6 +27,7 @@ import { parseJwt } from "utils/parse-jwt";
 import { AuthPage } from "@pankod/refine-mui";
 
 import {
+  UpdatePassword,
   Register,
   ForgotPassword,
   AgentProfile,
@@ -182,7 +183,7 @@ function App() {
               },
               {
                 path: "/update-password",
-                element: <AuthPage type="updatePassword" />,
+                element: <UpdatePassword />,
               },
             ],
           }}

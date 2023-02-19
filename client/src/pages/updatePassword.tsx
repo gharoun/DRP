@@ -1,8 +1,7 @@
 import { yariga } from "../assets";
-import { useForgotPassword, useRouterContext } from "@pankod/refine-core";
+import { useUpdatePassword, useRouterContext } from "@pankod/refine-core";
 import { useForm } from "@pankod/refine-react-hook-form";
 import {
-  Stack,
   Button,
   Container,
   Box,
@@ -10,13 +9,14 @@ import {
   Typography,
   Link as MuiLink,
 } from "@mui/material";
-export const ForgotPassword: React.FC = () => {
+export const UpdatePassword: React.FC = () => {
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { mutate, isLoading } = useForgotPassword();
+  const { mutate: update, isLoading } = useUpdatePassword();
   const { Link } = useRouterContext();
   return (
     <Box component="div" className="login-page">
@@ -34,7 +34,7 @@ export const ForgotPassword: React.FC = () => {
           component="form"
           onSubmit={handleSubmit((data) => {
             console.log(data);
-            return mutate(data);
+            return update(data);
           })}
           sx={{
             display: "flex",
@@ -56,40 +56,49 @@ export const ForgotPassword: React.FC = () => {
             align="center"
             className="login_title"
           >
-            Forgot your password
+            Set New Password
           </Typography>
 
           <Box width="80%">
             <TextField
-              {...register("email", {
+              {...register("password", {
                 required: true,
               })}
-              id="email"
+              id="password"
               margin="normal"
               fullWidth
-              label={"Email"}
-              error={!!errors.email}
-              name="email"
-              type="email"
               color="info"
-              autoComplete="email"
+              name="password"
+              label={"New Password"}
+              error={!!errors.password}
+              type="password"
+              placeholder="●●●●●●●●"
+              autoComplete="current-password"
             />
           </Box>
-          <Box textAlign="right">
-            <Typography variant="body2" component="span">
-              Have an account?
-            </Typography>{" "}
-            <MuiLink
-              variant="body2"
+
+          <Box width="80%">
+            <TextField
+              {...register("confirmPassword", {
+                required: true,
+                validate: (value: string) => {
+                  if (watch("password") !== value)
+                    return "Passwords do not match";
+                },
+              })}
+              id="confirmPassword"
+              margin="normal"
+              fullWidth
               color="info"
-              component={Link}
-              underline="none"
-              to="/login"
-              fontWeight="bold"
-            >
-              Sign in
-            </MuiLink>
+              name="confirmPassword"
+              label={"Confirm New Password"}
+              error={!!errors.password}
+              type="password"
+              placeholder="●●●●●●●●"
+              autoComplete="current-confirm-password"
+            />
           </Box>
+
           <Box width="80%">
             <Button
               type="submit"
@@ -101,7 +110,7 @@ export const ForgotPassword: React.FC = () => {
               }}
               disabled={isLoading}
             >
-              Send reset instructions
+              Update
             </Button>
           </Box>
         </Box>
