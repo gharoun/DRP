@@ -10,6 +10,21 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const findUser = async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    const user = await User.findOne({ email });
+
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 const createUser = async (req, res) => {
   try {
     const { name, email, avatar } = req.body;
@@ -46,4 +61,4 @@ const getUserInfoByID = async (req, res) => {
   }
 };
 
-export { getAllUsers, createUser, getUserInfoByID };
+export { getAllUsers, createUser, getUserInfoByID, findUser };

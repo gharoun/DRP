@@ -57,39 +57,69 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 
 function App() {
   const authProvider: AuthProvider = {
-    login: async ({ credential }: CredentialResponse) => {
-      const profileObj = credential ? parseJwt(credential) : null;
-
-      //save user to MongoDB
-      if (profileObj) {
-        const response = await fetch("http://localhost:8080/api/v1/users", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: profileObj.name,
-            email: profileObj.email,
-            avatar: profileObj.picture,
-          }),
-        });
-        const data = await response.json();
-
-        if (response.status === 200) {
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              ...profileObj,
+    login: async ({ credential, email, password }) => {
+      if (credential) {
+        const profileObj = credential ? parseJwt(credential) : null;
+        console.log(profileObj);
+        //save user to MongoDB
+        if (profileObj) {
+          const response = await fetch("http://localhost:8080/api/v1/users", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: profileObj.name,
+              email: profileObj.email,
               avatar: profileObj.picture,
-              userid: data._id,
-            })
-          );
-        } else {
-          return Promise.reject();
+            }),
+          });
+          const data = await response.json();
+          console.log("data", data);
+          if (response.status === 200) {
+            localStorage.setItem(
+              "user",
+              JSON.stringify({
+                ...profileObj,
+                avatar: profileObj.picture,
+                userid: data._id,
+              })
+            );
+            console.log(localStorage);
+          } else {
+            return Promise.reject();
+          }
         }
+
+        localStorage.setItem("token", `${credential}`);
+
+        return Promise.resolve();
       }
-
-      localStorage.setItem("token", `${credential}`);
-
-      return Promise.resolve();
+      if (email) {
+        console.log(email);
+        const endpoint = `http://localhost:8080/api/v1/users/user/${email}`;
+        axios
+          .get(endpoint)
+          .then((response) => {
+            if (response.status === 200) {
+              localStorage.setItem(
+                "user",
+                JSON.stringify({
+                  ...response.data,
+                  avatar: response.data.picture,
+                  userid: response.data._id,
+                })
+              );
+            } else {
+              return Promise.reject();
+            }
+            console.log(response.data); // The user data is logged to the console
+          })
+          .catch((error) => {
+            console.error(error); // If an error occurs, it is logged to the console
+          });
+        localStorage.setItem("token", `${email}`);
+        console.log(localStorage);
+        return Promise.resolve();
+      }
     },
     logout: () => {
       const token = localStorage.getItem("token");

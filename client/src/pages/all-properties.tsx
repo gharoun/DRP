@@ -27,6 +27,7 @@ const AllProperties = () => {
     filters,
     setFilters,
   } = useTable();
+  console.log(data);
 
   const allProperties = data?.data ?? [];
 
