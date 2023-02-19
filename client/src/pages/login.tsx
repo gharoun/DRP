@@ -1,61 +1,9 @@
-import { useEffect, useRef } from "react";
-import { useLogin } from "@pankod/refine-core";
-
-import {
-  Button,
-  BoxProps,
-  Box,
-  Checkbox,
-  Container,
-  Card,
-  CardContent,
-  CardContentProps,
-  FormControlLabel,
-  TextField,
-  Typography,
-  Divider,
-  Link,
-} from "@mui/material";
+import { Box, Container, Typography, Divider } from "@mui/material";
 import { yariga } from "../assets";
-
-import { CredentialResponse } from "../interfaces/google";
+import { GoogleButton } from "utils/google-loging";
 import LoginForm from "./../components/login/LoginForm";
 
 export const Login: React.FC = () => {
-  const { mutate: login } = useLogin<CredentialResponse>();
-
-  const GoogleButton = (): JSX.Element => {
-    const divRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-      if (typeof window === "undefined" || !window.google || !divRef.current) {
-        return;
-      }
-
-      try {
-        window.google.accounts.id.initialize({
-          ux_mode: "popup",
-          client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-          callback: async (res: CredentialResponse) => {
-            if (res.credential) {
-              login(res);
-            }
-          },
-        });
-        window.google.accounts.id.renderButton(divRef.current, {
-          theme: "filled_blue",
-          size: "large",
-          type: "standard",
-          shape: "pill",
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }, []); // you can also add your client id as dependency here
-
-    return <div style={{ width: "100%" }} ref={divRef} />;
-  };
-
   return (
     <Box component="div" className="login-page">
       <Container
