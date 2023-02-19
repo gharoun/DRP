@@ -2,8 +2,6 @@ import {
   Stack,
   Button,
   Box,
-  Checkbox,
-  FormControlLabel,
   TextField,
   Typography,
   Link as MuiLink,

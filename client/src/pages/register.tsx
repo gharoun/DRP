@@ -1,7 +1,6 @@
 import { Box, Container, Typography, Divider } from "@mui/material";
 import { yariga } from "../assets";
 import { GoogleButton } from "utils/google-loging";
-import LoginForm from "./../components/login/LoginForm";
 import RegisterForm from "components/login/registerForm";
 
 export const Register: React.FC = () => {

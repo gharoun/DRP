@@ -16,7 +16,6 @@ import {
   StarOutlineRounded,
   VillaOutlined,
 } from "@mui/icons-material";
-
 import dataProvider from "@pankod/refine-simple-rest";
 import { MuiInferencer } from "@pankod/refine-inferencer/mui";
 import routerProvider from "@pankod/refine-react-router-v6";
@@ -26,8 +25,10 @@ import { Title, Sider, Layout, Header } from "components/layout";
 import { CredentialResponse } from "interfaces/google";
 import { parseJwt } from "utils/parse-jwt";
 import { AuthPage } from "@pankod/refine-mui";
-import { Register } from "pages/register";
+
 import {
+  Register,
+  ForgotPassword,
   AgentProfile,
   Agents,
   AllProperties,
@@ -173,7 +174,7 @@ function App() {
             routes: [
               {
                 path: "/forgot-password",
-                element: <AuthPage type="forgotPassword" />,
+                element: <ForgotPassword />,
               },
               {
                 path: "/register",
