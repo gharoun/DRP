@@ -25,6 +25,7 @@ import { ColorModeContextProvider } from "contexts";
 import { Title, Sider, Layout, Header } from "components/layout";
 import { CredentialResponse } from "interfaces/google";
 import { parseJwt } from "utils/parse-jwt";
+import { AuthPage } from "@pankod/refine-mui";
 
 import {
   AgentProfile,
@@ -167,7 +168,23 @@ function App() {
           Sider={Sider}
           Layout={Layout}
           Header={Header}
-          routerProvider={routerProvider}
+          routerProvider={{
+            ...routerProvider,
+            routes: [
+              {
+                path: "/forgot-password",
+                element: <AuthPage type="forgotPassword" />,
+              },
+              {
+                path: "/register",
+                element: <AuthPage type="register" />,
+              },
+              {
+                path: "/update-password",
+                element: <AuthPage type="updatePassword" />,
+              },
+            ],
+          }}
           authProvider={authProvider}
           LoginPage={Login}
           DashboardPage={Home}

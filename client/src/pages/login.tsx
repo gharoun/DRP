@@ -1,10 +1,25 @@
 import { useEffect, useRef } from "react";
 import { useLogin } from "@pankod/refine-core";
-import { Container, Box } from "@pankod/refine-mui";
 
+import {
+  Button,
+  BoxProps,
+  Box,
+  Checkbox,
+  Container,
+  Card,
+  CardContent,
+  CardContentProps,
+  FormControlLabel,
+  TextField,
+  Typography,
+  Divider,
+  Link,
+} from "@mui/material";
 import { yariga } from "../assets";
 
 import { CredentialResponse } from "../interfaces/google";
+import LoginForm from "./../components/login/LoginForm";
 
 export const Login: React.FC = () => {
   const { mutate: login } = useLogin<CredentialResponse>();
@@ -29,19 +44,20 @@ export const Login: React.FC = () => {
         });
         window.google.accounts.id.renderButton(divRef.current, {
           theme: "filled_blue",
-          size: "medium",
+          size: "large",
           type: "standard",
+          shape: "pill",
         });
       } catch (error) {
         console.log(error);
       }
     }, []); // you can also add your client id as dependency here
 
-    return <div ref={divRef} />;
+    return <div style={{ width: "100%" }} ref={divRef} />;
   };
 
   return (
-    <Box component="div" sx={{ backgroundColor: "#FCFCFC" }}>
+    <Box component="div" className="login-page">
       <Container
         component="main"
         maxWidth="xs"
@@ -58,13 +74,30 @@ export const Login: React.FC = () => {
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
+            backgroundColor: "#fcfcfc",
+            borderRadius: "10px",
+            gap: "10px",
+            padding: "10px",
           }}
         >
-          <div>
+          <Box>
             <img src={yariga} alt="Yariga Logo" />
-          </div>
-          <Box mt={4}>
+          </Box>
+          <Typography
+            component="h1"
+            variant="h5"
+            align="center"
+            className="login_title"
+          >
+            Sign in to your account
+          </Typography>
+
+          <Box>
             <GoogleButton />
+          </Box>
+          <Divider style={{ fontSize: 20 }}>or</Divider>
+          <Box pl="15px" pr="15px">
+            <LoginForm />
           </Box>
         </Box>
       </Container>
