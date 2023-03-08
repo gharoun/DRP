@@ -13,7 +13,12 @@ export const Title: React.FC<TitleProps> = ({ collapsed }) => {
         {collapsed ? (
           <img src={logo} alt="Yariga" width="28px" />
         ) : (
-          <img src={yariga} alt="Refine" width="140px" />
+          <img
+            style={{ marginTop: 20, width: 80 }}
+            src={yariga}
+            alt="Refine"
+            width="140px"
+          />
         )}
       </Link>
     </Button>

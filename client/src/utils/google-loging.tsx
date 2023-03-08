@@ -28,7 +28,7 @@ export const GoogleButton = (): JSX.Element => {
     } catch (error) {
       console.log(error);
     }
-  }, []); // you can also add your client id as dependency here
+  }, [[process.env.REACT_APP_GOOGLE_CLIENT_ID, window.google, divRef.current]]); // you can also add your client id as dependency here
 
-  return <div style={{ width: "100%" }} ref={divRef} />;
+  return <div ref={divRef} />;
 };

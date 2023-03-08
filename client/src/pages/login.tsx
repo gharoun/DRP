@@ -28,8 +28,19 @@ export const Login: React.FC = () => {
             padding: "10px",
           }}
         >
-          <Box>
+          <Box
+            width="100px"
+            sx={{ display: "flex", justifyContent: "center", gap: "30px" }}
+          >
             <img src={yariga} alt="Yariga Logo" />
+            <Typography
+              component="h1"
+              variant="h5"
+              align="center"
+              sx={{ color: "#43a34e", fontSize: "20px", hyphens: "manual" }}
+            >
+              Demande Prediction Report
+            </Typography>
           </Box>
           <Typography
             component="h1"

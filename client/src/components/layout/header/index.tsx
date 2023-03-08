@@ -5,7 +5,7 @@ import { AppBar, Avatar, Stack, Toolbar, Typography } from "@pankod/refine-mui";
 export const Header: React.FC = () => {
   const { data: user } = useGetIdentity();
   const showUserInfo = user && (user.name || user.avatar);
-
+  console.log(user);
   return (
     <AppBar
       color="default"

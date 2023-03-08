@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Refine, AuthProvider } from "@pankod/refine-core";
 import {
   notificationProvider,
@@ -17,14 +15,12 @@ import {
   VillaOutlined,
 } from "@mui/icons-material";
 import dataProvider from "@pankod/refine-simple-rest";
-import { MuiInferencer } from "@pankod/refine-inferencer/mui";
 import routerProvider from "@pankod/refine-react-router-v6";
 import axios, { AxiosRequestConfig } from "axios";
 import { ColorModeContextProvider } from "contexts";
 import { Title, Sider, Layout, Header } from "components/layout";
-import { CredentialResponse } from "interfaces/google";
+
 import { parseJwt } from "utils/parse-jwt";
-import { AuthPage } from "@pankod/refine-mui";
 
 import {
   UpdatePassword,
@@ -83,7 +79,7 @@ function App() {
                 userid: data._id,
               })
             );
-            console.log(localStorage);
+            console.log("zebi", localStorage);
           } else {
             return Promise.reject();
           }
@@ -99,28 +95,66 @@ function App() {
         axios
           .get(endpoint)
           .then((response) => {
-            if (response.status === 200) {
+            const data = response.data;
+            if (data.email === email) {
+              console.log("response", data);
               localStorage.setItem(
                 "user",
                 JSON.stringify({
-                  ...response.data,
-                  avatar: response.data.picture,
-                  userid: response.data._id,
+                  ...data,
+                  userid: data._id,
                 })
               );
+              localStorage.setItem("token", `${email}`);
+              console.log("local storage", localStorage);
             } else {
+              console.log("response", data);
               return Promise.reject();
             }
-            console.log(response.data); // The user data is logged to the console
           })
           .catch((error) => {
-            console.error(error); // If an error occurs, it is logged to the console
+            console.error(error);
           });
-        localStorage.setItem("token", `${email}`);
-        console.log(localStorage);
-        return Promise.resolve();
+        return Promise.resolve("/");
       }
+      return Promise.reject();
     },
+    register: async (params) => {
+      if (params) {
+        console.log(params);
+        const response = await fetch("http://localhost:8080/api/v1/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: params.firstName + " " + params.lastName,
+            email: params.email,
+            avatar:
+              "https://unsplash.com/photos/IWLOvomUmWU/download?force=true&w=640",
+          }),
+        });
+        const data = await response.json();
+        console.log("data", data);
+        if (response.status === 200) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              ...params,
+              avatar:
+                "https://unsplash.com/photos/IWLOvomUmWU/download?force=true&w=640",
+              userid: data._id,
+            })
+          );
+          console.log(localStorage);
+        } else {
+          return Promise.reject();
+        }
+      }
+
+      localStorage.setItem("token", `${params}`);
+
+      return Promise.resolve();
+    },
+
     logout: () => {
       const token = localStorage.getItem("token");
 
@@ -149,8 +183,10 @@ function App() {
     getUserIdentity: async () => {
       const user = localStorage.getItem("user");
       if (user) {
+        console.log("userdfsdmlkf", user);
         return Promise.resolve(JSON.parse(user));
       }
+      return Promise.reject();
     },
   };
 
