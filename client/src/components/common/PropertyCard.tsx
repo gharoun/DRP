@@ -23,18 +23,15 @@ const PropertyCard = ({
       component={Link}
       to={`/properties/show/${id}`}
       sx={{
-        maxWidth: "330px",
-        padding: "10px",
+        width: "300px",
         "&:hover": {
           boxShadow: "0 22px 45px 2px rgba(176, 176, 176, 0.1)",
         },
         cursor: "pointer",
       }}
-      elevation={0}
     >
       <CardMedia
         component="img"
-        width="100%"
         height={210}
         image={photo}
         alt="card image"

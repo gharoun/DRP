@@ -9,12 +9,56 @@ import {
   MenuItem,
 } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { PropertyCard, CustomButton } from "components";
+import { apiHospitality } from "services/api-client";
 
+interface Data {
+  name: string;
+  geo_description: string;
+  _id: number;
+  location_string: string;
+  num_reviews: string;
+  photo: {
+    images: {
+      medium: {
+        url: string;
+      };
+    };
+  };
+}
+
+interface Hospitality {
+  result_object: Data;
+}
 const AllProperties = () => {
   const navigate = useNavigate();
+  const [hospitality, setHospitality] = useState<Hospitality[]>([]);
+  useEffect(() => {
+    const controller = new AbortController();
+    apiHospitality
+      .get("/search", { signal: controller.signal })
+      .then((res) => {
+        setHospitality(res.data.data);
+        console.log("setHospitality", res.data.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+    return () => controller.abort();
+  }, []);
+
+  const ipaData = hospitality.map((item, index) => {
+    return {
+      title: item.result_object.name,
+      description: item.result_object.geo_description,
+      _id: index + 5000,
+      location: item.result_object.location_string,
+      price: parseInt(item.result_object.num_reviews),
+      photo: item.result_object.photo.images.medium.url,
+    };
+  });
 
   const {
     tableQueryResult: { data, isLoading, isError },
@@ -27,10 +71,8 @@ const AllProperties = () => {
     filters,
     setFilters,
   } = useTable();
-  console.log(data);
-
-  const allProperties = data?.data ?? [];
-
+  const properties = data?.data ?? [];
+  const allProperties = [...properties, ...ipaData];
   const currentPrice = sorter.find((item) => item.field === "price")?.order;
 
   const toggleSort = (field: string) => {
@@ -214,3 +256,6 @@ const AllProperties = () => {
 };
 
 export default AllProperties;
+function indexOf(item: Hospitality): any {
+  throw new Error("Function not implemented.");
+}

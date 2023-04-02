@@ -36,6 +36,7 @@ import {
   PropertyDetails,
   EditProperty,
 } from "./pages";
+import events from "pages/events";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -207,6 +208,12 @@ function App() {
               show: PropertyDetails,
               create: CreateProperty,
               edit: EditProperty,
+              icon: <VillaOutlined />,
+            },
+            {
+              name: "events",
+              list: events,
+
               icon: <VillaOutlined />,
             },
             {
