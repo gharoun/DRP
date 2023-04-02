@@ -12,16 +12,20 @@ import {
 import { PropertyCardProps } from "interfaces/property";
 
 const PropertyCard = ({
+  type,
   id,
   title,
   location,
   price,
   photo,
 }: PropertyCardProps) => {
+  const isProperty = type === "property";
   return (
     <Card
-      component={Link}
-      to={`/properties/show/${id}`}
+      component={isProperty ? Link : "a"}
+      to={isProperty ? `/properties/show/${id}` : ""}
+      href={!isProperty ? "https://www.facebook.com" : ""}
+      target={!isProperty ? "_blank" : ""}
       sx={{
         width: "300px",
         "&:hover": {

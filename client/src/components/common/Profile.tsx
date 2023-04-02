@@ -148,6 +148,7 @@ const Profile = ({ type, name, avatar, email, properties }: ProfileProps) => (
         >
           {properties?.map((property: PropertyProps) => (
             <PropertyCard
+              type="property"
               key={property._id}
               id={property._id}
               title={property.title}

@@ -83,6 +83,7 @@ const Home = () => {
         <Box mt={2.5} sx={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
           {latestProperties.map((property) => (
             <PropertyCard
+              type="property"
               key={property._id}
               id={property._id}
               title={property.title}
