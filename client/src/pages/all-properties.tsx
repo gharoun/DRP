@@ -35,6 +35,7 @@ interface Hospitality {
 const AllProperties = () => {
   const navigate = useNavigate();
   const [hospitality, setHospitality] = useState<Hospitality[]>([]);
+
   useEffect(() => {
     const controller = new AbortController();
     apiHospitality
@@ -256,6 +257,3 @@ const AllProperties = () => {
 };
 
 export default AllProperties;
-function indexOf(item: Hospitality): any {
-  throw new Error("Function not implemented.");
-}
