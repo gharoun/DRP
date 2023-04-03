@@ -1,4 +1,5 @@
 import userModel from "../mongoDB/models/User.js";
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await userModel.find({}).limit(req.query._end);
