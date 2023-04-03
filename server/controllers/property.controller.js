@@ -1,6 +1,5 @@
-import Property from "../mongodb/models/property.js";
-import User from "../mongodb/models/user.js";
-
+import Property from "../mongoDB/models/property.js";
+import userModel from "../mongoDB/models/User.js";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import { v2 as cloudinary } from "cloudinary";
@@ -71,7 +70,7 @@ const createProperty = async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
 
-    const user = await User.findOne({ email }).session(session);
+    const user = await userModel.findOne({ email }).session(session);
 
     if (!user) throw new Error("User not found");
 
