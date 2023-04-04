@@ -1,5 +1,5 @@
-import Property from "../mongodb/models/property.js";
-import userModel from "../mongodb/models/user.js";
+import Property from "../mongoDB/models/property.js";
+import userModel from "../mongoDB/models/user.js";
 
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
