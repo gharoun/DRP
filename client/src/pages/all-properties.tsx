@@ -9,11 +9,9 @@ import {
   MenuItem,
 } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { PropertyCard, CustomButton } from "components";
-import { apiHospitality } from "services/api-client";
-import useData from "hooks/useData";
 
 const AllProperties = () => {
   const navigate = useNavigate();
@@ -30,8 +28,6 @@ const AllProperties = () => {
     setFilters,
   } = useTable();
   const allProperties = data?.data ?? [];
-
-  const ipaData = useData();
 
   const currentPrice = sorter.find((item) => item.field === "price")?.order;
 
@@ -157,17 +153,6 @@ const AllProperties = () => {
         {allProperties?.map((property) => (
           <PropertyCard
             type="property"
-            key={property._id}
-            id={property._id}
-            title={property.title}
-            location={property.location}
-            price={property.price}
-            photo={property.photo}
-          />
-        ))}
-        {ipaData?.map((property) => (
-          <PropertyCard
-            type="hospitality"
             key={property._id}
             id={property._id}
             title={property.title}

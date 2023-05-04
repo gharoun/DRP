@@ -8,20 +8,3 @@ export const apiClient = axios.create({
     per_page: 100,
   },
 });
-
-export const apiHospitality = axios.create({
-  baseURL: " https://travel-advisor.p.rapidapi.com/locations",
-  params: {
-    query: "Kansas",
-    limit: "100",
-    offset: "0",
-    units: "mi",
-    currency: "USD",
-    sort: "relevance",
-    lang: "en_US",
-  },
-  headers: {
-    "X-RapidAPI-Key": "48fd9328cdmshb16441292acf001p173acfjsn7cb832539843",
-    "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-  },
-});

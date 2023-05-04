@@ -1,5 +1,3 @@
-import AgentProfile from "./agent-profile";
-import Agents from "./agent";
 import AllProperties from "./all-properties";
 import CreateProperty from "./create-property";
 import Home from "./home";
@@ -15,8 +13,6 @@ export {
   UpdatePassword,
   Register,
   ForgotPassword,
-  AgentProfile,
-  Agents,
   AllProperties,
   CreateProperty,
   Home,

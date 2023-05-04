@@ -26,8 +26,6 @@ import {
   UpdatePassword,
   Register,
   ForgotPassword,
-  AgentProfile,
-  Agents,
   AllProperties,
   CreateProperty,
   Home,
@@ -60,15 +58,18 @@ function App() {
         console.log(profileObj);
         //save user to MongoDB
         if (profileObj) {
-          const response = await fetch("http://localhost:8080/api/v1/users", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: profileObj.name,
-              email: profileObj.email,
-              avatar: profileObj.picture,
-            }),
-          });
+          const response = await fetch(
+            "https://demandpridictionreport.onrender.com/api/v1/users",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name: profileObj.name,
+                email: profileObj.email,
+                avatar: profileObj.picture,
+              }),
+            }
+          );
           const data = await response.json();
           console.log("data", data);
           if (response.status === 200) {
@@ -92,7 +93,7 @@ function App() {
       }
       if (email) {
         console.log(email);
-        const endpoint = `http://localhost:8080/api/v1/users/user/${email}`;
+        const endpoint = `https://demandpridictionreport.onrender.com/api/v1/users/user/${email}`;
         axios
           .get(endpoint)
           .then((response) => {
@@ -123,16 +124,19 @@ function App() {
     register: async (params) => {
       if (params) {
         console.log(params);
-        const response = await fetch("http://localhost:8080/api/v1/users", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: params.firstName + " " + params.lastName,
-            email: params.email,
-            avatar:
-              "https://unsplash.com/photos/IWLOvomUmWU/download?force=true&w=640",
-          }),
-        });
+        const response = await fetch(
+          "https://demandpridictionreport.onrender.com/api/v1/users",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: params.firstName + " " + params.lastName,
+              email: params.email,
+              avatar:
+                "https://unsplash.com/photos/IWLOvomUmWU/download?force=true&w=640",
+            }),
+          }
+        );
         const data = await response.json();
         console.log("data", data);
         if (response.status === 200) {
@@ -197,7 +201,9 @@ function App() {
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
       <RefineSnackbarProvider>
         <Refine
-          dataProvider={dataProvider("http://localhost:8080/api/v1")}
+          dataProvider={dataProvider(
+            "https://demandpridictionreport.onrender.com/api/v1"
+          )}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
@@ -216,22 +222,7 @@ function App() {
 
               icon: <VillaOutlined />,
             },
-            {
-              name: "agents",
-              list: Agents,
-              show: AgentProfile,
-              icon: <PeopleAltOutlined />,
-            },
-            {
-              name: "Reviews",
-              list: Home,
-              icon: <StarOutlineRounded />,
-            },
-            {
-              name: "messages",
-              list: Home,
-              icon: <ChatBubbleOutline />,
-            },
+
             {
               name: "my-profile",
               options: { label: "My Profile" },

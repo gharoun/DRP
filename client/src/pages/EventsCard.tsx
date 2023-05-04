@@ -1,15 +1,8 @@
-import React from "react";
 import { Events } from "./events";
-import { Navigate } from "@pankod/refine-react-router-v6";
-import { Link } from "@pankod/refine-react-router-v6";
 import {
-  Box,
   Card,
   Stack,
   Typography,
-  TextField,
-  Select,
-  MenuItem,
   CardMedia,
   CardContent,
 } from "@pankod/refine-mui";
@@ -24,8 +17,7 @@ const EventsCard = ({ events }: Props) => {
   return (
     <Card
       component="a"
-      href={events.url}
-      target="_blank"
+      href={"/"}
       sx={{
         width: "300px",
         "&:hover": {

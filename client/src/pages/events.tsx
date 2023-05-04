@@ -33,7 +33,7 @@ const Events = () => {
   return (
     <div>
       <Typography fontSize={25} fontWeight={700} color="#11142d">
-        {!data.length ? "There are no events" : "Upcomming events"}
+        {!data.length ? "There are no events" : "Upcoming events"}
       </Typography>
 
       <Box mt="20px" sx={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
