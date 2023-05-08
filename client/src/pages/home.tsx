@@ -1,5 +1,13 @@
-import { useList } from "@pankod/refine-core";
-import { Typography, Box, Stack } from "@pankod/refine-mui";
+import { useGetIdentity, useList } from "@pankod/refine-core";
+import {
+  Typography,
+  Box,
+  Stack,
+  FormControl,
+  FormHelperText,
+  Select,
+  MenuItem,
+} from "@pankod/refine-mui";
 
 import {
   PieChart,
@@ -7,18 +15,29 @@ import {
   TotalRevenue,
   PropertyCard,
 } from "components";
+import ExpectedClientApril from "components/charts/expectedClient_april";
+import ExpectedClientJune from "components/charts/expectedClient_june";
+import ExpectedClientMay from "components/charts/expectedClient_may";
+import { useState } from "react";
 
 const Home = () => {
+  const [monthlySelect, setmonthlySelect] = useState("june");
+  const { data: user } = useGetIdentity();
+
   const { data, isLoading, isError } = useList({
     resource: "properties",
     config: {
       pagination: {
-        pageSize: 4,
+        pageSize: 1,
       },
     },
   });
 
   const latestProperties = data?.data ?? [];
+  console.log(user);
+  console.log(latestProperties[0]?.creator);
+  if (user?.userid !== latestProperties[0]?.creator)
+    return <h1>You Have to register a Property!</h1>;
 
   if (isLoading) return <Typography>Loading...</Typography>;
   if (isError) return <Typography>Something went wrong!</Typography>;
@@ -71,9 +90,42 @@ const Home = () => {
         <PropertyReferrals />
       </Stack>
 
+      <Stack direction="row" gap={4}>
+        <FormControl sx={{ flex: 1 }}>
+          <FormHelperText
+            sx={{
+              fontWeight: 500,
+              margin: "10px 0",
+              fontSize: 16,
+              color: "#11142d",
+            }}
+          >
+            Select Previews Data by Month
+          </FormHelperText>
+          <Select
+            variant="outlined"
+            color="info"
+            displayEmpty
+            required
+            inputProps={{ "aria-label": "Without label" }}
+            defaultValue="June"
+            onChange={(e) => setmonthlySelect(e.target.value)}
+          >
+            <MenuItem value="april">April</MenuItem>
+            <MenuItem value="may">May</MenuItem>
+            <MenuItem value="june">June</MenuItem>
+          </Select>
+        </FormControl>
+      </Stack>
+      <Box marginTop={3}>
+        {monthlySelect === "april" && <ExpectedClientApril />}
+        {monthlySelect === "may" && <ExpectedClientMay />}
+        {monthlySelect === "june" && <ExpectedClientJune />}
+      </Box>
+
       <Box
         flex={1}
-        borderRadius="15px"
+        borderRadius="1px"
         padding="20px"
         bgcolor="#fcfcfc"
         display="flex"

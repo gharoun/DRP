@@ -26,6 +26,7 @@ const PropertyDetails = () => {
   const { id } = useParams();
 
   const { data, isLoading, isError } = queryResult;
+  console.log("gaya", data);
 
   const propertyDetails = data?.data ?? {};
 
