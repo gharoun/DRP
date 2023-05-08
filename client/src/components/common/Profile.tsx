@@ -153,7 +153,6 @@ const Profile = ({ type, name, avatar, email, properties }: ProfileProps) => (
               id={property._id}
               title={property.title}
               location={property.location}
-              price={property.price}
               photo={property.photo}
             />
           ))}

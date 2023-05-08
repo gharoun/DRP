@@ -28,34 +28,39 @@ const Home = () => {
       <Typography fontSize={25} fontWeight={700} color="#11142D">
         Dashboard
       </Typography>
+      <Typography marginTop={3} fontSize={25} fontWeight={700} color="#11142D">
+        Event Name
+      </Typography>
 
       <Box mt="20px" display="flex" flexWrap="wrap" gap={4}>
         <PieChart
-          title="Properties for Sale"
-          value={684}
+          title="Full Capacity"
+          value={1546}
           series={[75, 25]}
           colors={["#275be8", "#c4e8ef"]}
         />
         <PieChart
-          title="Properties for Rent"
+          title="Ticket Sold"
           value={550}
           series={[60, 40]}
           colors={["#275be8", "#c4e8ef"]}
         />
         <PieChart
-          title="Total customers"
-          value={5684}
-          series={[75, 25]}
+          title="Expected Capacity"
+          value={1250}
+          series={[80, 20]}
           colors={["#275be8", "#c4e8ef"]}
         />
         <PieChart
-          title="Properties for Cities"
-          value={555}
+          title="last Event clients Attading"
+          value={1100}
           series={[75, 25]}
           colors={["#275be8", "#c4e8ef"]}
         />
       </Box>
-
+      <Typography marginTop={3} fontSize={25} fontWeight={700} color="#11142D">
+        Property details
+      </Typography>
       <Stack
         mt="25px"
         width="100%"
@@ -88,7 +93,6 @@ const Home = () => {
               id={property._id}
               title={property.title}
               location={property.location}
-              price={property.price}
               photo={property.photo}
             />
           ))}

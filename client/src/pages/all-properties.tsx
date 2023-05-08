@@ -157,7 +157,6 @@ const AllProperties = () => {
             id={property._id}
             title={property.title}
             location={property.location}
-            price={property.price}
             photo={property.photo}
           />
         ))}

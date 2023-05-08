@@ -112,36 +112,12 @@ const Form = ({
                   required: true,
                 })}
               >
-                <MenuItem value="apartment">Apartment</MenuItem>
-                <MenuItem value="villa">Villa</MenuItem>
-                <MenuItem value="farmhouse">farmhouse</MenuItem>
-                <MenuItem value="condos">Condos</MenuItem>
-                <MenuItem value="townhouse">Townhouse</MenuItem>
-                <MenuItem value="duplex">Duplex</MenuItem>
-                <MenuItem value="studio">Studio</MenuItem>
-                <MenuItem value="chalet">Chalet</MenuItem>
+                <MenuItem value="restaurent">Restaurent</MenuItem>
+                <MenuItem value="hotel">Hotel</MenuItem>
+                <MenuItem value="store">Store</MenuItem>
+                <MenuItem value="Cafeteria">cafeteria</MenuItem>
+                <MenuItem value="salon">Salon</MenuItem>
               </Select>
-            </FormControl>
-            <FormControl>
-              <FormHelperText
-                sx={{
-                  fontWeight: 500,
-                  margin: "10px 0",
-                  fontSize: 16,
-                  color: "#11142d",
-                }}
-              >
-                Enter property price
-              </FormHelperText>
-              <TextField
-                fullWidth
-                required
-                id="outlined-basic"
-                color="info"
-                type="number"
-                variant="outlined"
-                {...register("price", { required: true })}
-              />
             </FormControl>
           </Stack>
 

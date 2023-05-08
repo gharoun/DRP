@@ -17,7 +17,6 @@ export interface PropertyCardProps {
   id?: BaseKey | undefined;
   title: string;
   location: string;
-  price: string;
   photo: string;
   type: string;
 }

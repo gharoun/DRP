@@ -65,7 +65,7 @@ const getPropertyDetail = async (req, res) => {
 
 const createProperty = async (req, res) => {
   try {
-    const { title, description, propertyType, location, price, photo, email } =
+    const { title, description, propertyType, location, photo, email } =
       req.body;
 
     const session = await mongoose.startSession();
@@ -82,7 +82,6 @@ const createProperty = async (req, res) => {
       description,
       propertyType,
       location,
-      price,
       photo: photoUrl.url,
       creator: user._id,
     });
@@ -101,8 +100,7 @@ const createProperty = async (req, res) => {
 const updateProperty = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, propertyType, location, price, photo } =
-      req.body;
+    const { title, description, propertyType, location, photo } = req.body;
 
     const photoUrl = await cloudinary.uploader.upload(photo);
 
@@ -113,7 +111,6 @@ const updateProperty = async (req, res) => {
         description,
         propertyType,
         location,
-        price,
         photo: photoUrl.url || photo,
       }
     );

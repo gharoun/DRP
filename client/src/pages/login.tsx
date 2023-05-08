@@ -39,7 +39,7 @@ export const Login: React.FC = () => {
               align="center"
               sx={{ color: "#43a34e", fontSize: "20px", hyphens: "manual" }}
             >
-              Demande Prediction Report
+              Demande Pridiction Report
             </Typography>
           </Box>
           <Typography
